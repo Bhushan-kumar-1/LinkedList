@@ -10,7 +10,7 @@ class node{
         this->next = NULL;
     }
 };
-//time complexity = 0(1);
+//time complexity = 0(n);
 node *takeInputBetter(){
     int data;
     cin>>data;
