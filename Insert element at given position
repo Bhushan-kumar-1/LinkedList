@@ -1,0 +1,78 @@
+// take input from users and insert data according to given position and data
+#include <bits/stdc++.h>
+using namespace std;
+class node{
+    public:
+    int data;
+    node *next;
+
+    node(int data){
+        this->data = data;
+        this->next = NULL;
+    }
+
+};
+node *takeInput(){
+    int data;
+    cout<<"Enter your data : ";
+    cin>>data;
+    node *head = NULL;
+    node *tail = NULL;
+    while(data != -1){
+        node *newNode = new node(data);
+        if(head == NULL){
+            head = newNode;
+            tail = newNode;
+        }
+
+        else{
+            tail->next = newNode;
+            tail = tail->next;
+        }
+        cin>>data;
+    }
+    return head;
+}
+
+node *insertNode(node *head, int i, int data){
+    node *newNode = new node(data);
+    node *temp = head;
+    int count = 0;
+    if(i == 0){
+        newNode->next = head;
+        head = newNode;
+        return head;
+    }
+    while(temp != NULL && count < i-1){
+        temp = temp->next;
+        count++;
+    }
+    if(temp != NULL){
+        node *a = temp->next;
+        temp->next = newNode;
+        newNode->next = a;
+    }
+    return head;
+}
+
+void print(node *head){
+    while(head != NULL){
+        cout<<head->data<<" ";
+        head = head->next;
+    }
+}
+
+
+int main(){
+    node *head =takeInput();
+    print(head);
+    cout<<endl;
+    int i;
+    cout<<"Enter the position : ";
+    cin>>i;
+    int data;
+    cout<<"Enter you data : ";
+    cin>>data;
+    head = insertNode(head,i,data);
+    print(head);
+}
