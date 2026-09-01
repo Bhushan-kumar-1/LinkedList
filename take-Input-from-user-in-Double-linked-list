@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node *next;
+    node *prev;
+    
+    node(int data){
+        this->data = data;
+        this->next = NULL;
+        this->prev = NULL;
+    }
+};
+
+node *takeInput(){
+    int data;
+    cout<<"Enter your data : ";
+    cin>>data;
+    node *head = NULL;
+    node *tail = NULL;
+    while(data != -1){
+        node *newNode = new node(data);
+        if(head == NULL){
+            head = newNode;
+            tail = newNode;
+        }
+        else{
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = tail->next;
+        }
+        cin>>data;
+    }
+    return head;
+}
+
+void print(node *head){
+    node *temp = head;
+    while( temp->next != NULL){
+        temp = temp->next;
+    }
+    while(temp != NULL){
+        cout<<temp->data<<" ";
+        temp = temp->prev;
+    }
+}
+int main(){
+    node *head = takeInput();
+
+    print(head);
+}
