@@ -1,0 +1,92 @@
+//time-complexity = O(n)
+//space-complexity = O(1)
+#include<bits/stdc++.h>
+using namespace std;
+class node{
+    public:
+    int data;
+    node *next;
+    node *back;
+
+    node(int data){
+        this->data = data;
+        this->next = NULL;
+        this->back = NULL;
+    }
+
+};
+
+node *takeInput(){
+    int data;
+    cout<<"Enter your data : ";
+    cin>>data;
+    node *head = NULL;
+    node *tail = NULL;
+    while(data != -1){
+        node *newNode = new node(data);
+        if(head == NULL){
+            head = newNode;
+            tail = newNode;
+        }
+        else{
+            tail->next = newNode;
+            newNode->back = tail;
+            //tail = tail->next;
+            tail = newNode;
+        }
+        cout<<"Enter your data : ";
+        cin>>data;
+    }
+    return head;
+}
+
+void print(node *head){
+    while(head != NULL){
+        cout<<head->data<<" ";
+        head = head->next;
+    }
+}
+
+node *insertElement(node *head, int i, int data){
+    node *newNode = new node(data);
+    int count = 0;
+    if(i == 0){
+        newNode->next = head;
+        if(head != NULL) {
+            head->back = newNode;
+        }
+        head = newNode;
+        return head;
+    }
+    node *temp = head;
+    while(temp != NULL && count < i-1){
+        temp = temp->next;
+        count++;
+    }
+    if(temp != NULL){
+        newNode->next = temp->next;
+        newNode->back = temp;
+        if(temp->next != NULL){
+            temp->next->back = newNode;
+        }
+        temp->next = newNode;
+
+    }
+    return head;
+}
+
+int main(){
+    node *head = takeInput();
+    cout<<"Print the linked-list before insertion: ";
+    print(head);
+    cout<<endl;
+    int i;
+    cout<<"Enter your position : ";
+    cin>>i;
+    int data;
+    cout<<"Enter your data : ";
+    cin>>data;
+    head = insertElement(head,i,data);
+    cout<<"Print the element after insertion : ";
+    print(head);
+}
