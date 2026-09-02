@@ -1,0 +1,58 @@
+//time-complexity = O(n)
+//space-complexity = O(n) for linked-list
+#include<bits/stdc++.h>
+using namespace std;
+class node{
+    public:
+    int data;
+    node *next;
+    node *back;
+
+    node(int data){
+        this->data = data;
+        this->next = NULL;
+        this->back = NULL;
+    }
+
+};
+
+node *convertArrtoDLL(vector<int> arr){
+    int n = arr.size();
+    node *head = new node(arr[0]);
+    node *prev = head;
+    for(int i = 1; i<n; i++){
+        node *temp = new node(arr[i]);
+        prev->next = temp;
+        temp->back = prev;
+        prev = temp;
+    }
+    return head;
+}
+
+void print(node *head){
+    while(head != NULL){
+        cout<<head->data<<" ";
+        head = head->next;
+    }
+}
+
+void reverse(node *head){
+    node *temp = head;
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+    while(temp != NULL){
+        cout<<temp->data<<" ";
+        temp = temp->back;
+    }
+}
+
+int main(){
+    vector<int> arr = {1,2,3,4,5,6};
+    node *head = convertArrtoDLL(arr);
+    cout<<"Print the linked list element : ";
+    print(head);
+    cout<<endl;
+    cout<<"print the reverse of linked-list element : ";
+    reverse(head);
+}
