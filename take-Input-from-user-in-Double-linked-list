@@ -1,17 +1,19 @@
+//time complexity = O(n)
+//space complexity = O(n)
 #include<bits/stdc++.h>
 using namespace std;
-
 class node{
     public:
     int data;
     node *next;
-    node *prev;
-    
+    node *back;
+
     node(int data){
         this->data = data;
         this->next = NULL;
-        this->prev = NULL;
+        this->back = NULL;
     }
+
 };
 
 node *takeInput(){
@@ -28,26 +30,24 @@ node *takeInput(){
         }
         else{
             tail->next = newNode;
-            newNode->prev = tail;
-            tail = tail->next;
+            newNode->back = tail;
+            //tail = tail->next;
+            tail = newNode;
         }
+        cout<<"Enter your data : ";
         cin>>data;
     }
     return head;
 }
 
 void print(node *head){
-    node *temp = head;
-    while( temp->next != NULL){
-        temp = temp->next;
-    }
-    while(temp != NULL){
-        cout<<temp->data<<" ";
-        temp = temp->prev;
+    while(head != NULL){
+        cout<<head->data<<" ";
+        head = head->next;
     }
 }
+
 int main(){
     node *head = takeInput();
-
     print(head);
 }
