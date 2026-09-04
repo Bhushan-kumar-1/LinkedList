@@ -1,0 +1,84 @@
+#include<bits/stdc++.h>
+using namespace std;
+class node{
+  public:
+  int data;
+  node*next;
+
+  node(int data){
+    this->data = data;
+    this->next = NULL;
+  }
+};
+
+node *takeInput(){
+  int data;
+  cout<<"Enter your data: ";
+  cin>>data;
+  node *head = NULL;
+  node *tail = NULL;
+  while(data != -1){
+    node *newNode = new node(data);
+    if(head == NULL){
+      head = newNode;
+      tail = newNode;
+    }
+    else{
+      tail->next = newNode;
+      tail = newNode;
+    }
+    cout<<"Enter your data: ";
+    cin>>data;
+  }
+  return head;
+}
+
+void print(node *head){
+  node *temp = head;
+  while(temp){
+    cout<<temp->data<<" ";
+    temp = temp->next;
+  }
+}
+
+node *insertElement(node *head, int i, int k){
+  if(i == 0){
+    node *newNode = new node(k);
+    newNode->next = head;
+    head = newNode;
+    return head;
+  }
+  node *newNode = new node(k);
+  int count = 0;
+  node *temp = head;
+  while(temp != NULL && count < i-1){
+    count++;
+    temp = temp->next;
+  }
+  if(temp->next != NULL){
+    node *a = temp->next;
+    temp->next = newNode;
+    newNode->next = a;
+  }
+  else{
+    temp->next = newNode;
+    temp = newNode;
+  }
+  return head;
+}
+int main(){
+  node *head = takeInput();
+  cout<<"Before inserting: ";
+  print(head);
+  cout<<endl;
+  int i;
+  cout<<"Enter your Position: ";
+  cin>>i;
+  int k;
+  cout<<"Enter your Element : ";
+  cin>>k;
+  head = insertElement(head, i, k);
+  cout<<"After inserting Element : ";
+  print(head);
+  return 0;
+}
